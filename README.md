@@ -1,4 +1,4 @@
-# Infrastructure-as-Code: Automated Monitoring Stack 🚀
+# Infrastructure-as-Code: Automated Monitoring Stack 
 
 This repository demonstrates a fully automated Infrastructure-as-Code (IaC) solution using **SaltStack** to provision a robust monitoring environment. It automatically installs and configures Docker, Prometheus, and Grafana on a clean Debian-based system.
 
@@ -22,7 +22,7 @@ Why is this setup valuable for an organization?
 3. **Standardization:** Eliminates the "it works on my machine" problem. Every server provisioned with this code will be identical, making troubleshooting and onboarding significantly easier.
 4. **Proactive Monitoring:** Instantly provides the business with visibility into their infrastructure health via Prometheus and Grafana, preventing costly downtime.
 
-## 📂 Repository Structure
+##  Repository Structure
 
 The project is structured according to SaltStack best practices, keeping states modular and easy to maintain.
 ```text
@@ -42,7 +42,7 @@ The project is structured according to SaltStack best practices, keeping states 
             └── prometheus.yml # Prometheus configuration file
 ```
 
-## ⚙️ How to Deploy (Quickstart)
+##  How to Deploy (Quickstart)
 
 This project features a "turnkey" deployment. You do not need to manually install dependencies or configure state files.
 
@@ -68,7 +68,7 @@ sudo bash install_salt.sh
 * Sets up the `/srv/salt` directory and copies the configuration files.
 * Executes the Salt automation (`sudo salt-call --local state.apply`).
 
-## ✅ Verification
+##  Verification
 
 Once the script finishes, you should see a Salt summary indicating **0 failures** (e.g., `Succeeded: 7, Failed: 0`). 
 
