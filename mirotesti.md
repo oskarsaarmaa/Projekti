@@ -1,1 +1,0 @@
-Miron testi, loin tekstitiedoston :)
