@@ -1,0 +1,15 @@
+# Globaalit asetukset
+global:
+  scrape_interval: 15s     # Kuinka usein dataa haetaan (15 sekuntia on vakio)
+  evaluation_interval: 15s # Kuinka usein hälytyssääntöjä ajetaan
+
+# Mitä kohteita monitoroidaan
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090'] # Prometheus monitoroi tässä itseään
+
+  # Tähän voit myöhemmin lisätä muita koneita tai node_exporterin
+  # - job_name: 'node_exporter'
+  #   static_configs:
+  #     - targets: ['localhost:9100']
