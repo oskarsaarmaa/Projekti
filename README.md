@@ -2,7 +2,7 @@
 
 This repository provides a production-ready Infrastructure-as-Code (IaC) solution to provision a fully containerized monitoring environment. Utilizing **SaltStack**, the project automates the deployment of a complete stack including Docker, Prometheus, and Grafana on Debian-based systems.
 
-## 📖 Table of Contents
+##  Table of Contents
 * [Project Overview](#project-overview)
 * [Architecture & Tools](#architecture--tools)
 * [Business Value](#business-value)
