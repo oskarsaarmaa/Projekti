@@ -111,8 +111,8 @@ After a successful run, Salt will report `Succeeded: 7, Failed: 0`. You can then
 *(Note: Replace the path above with your actual screenshot file)*
 
 ---
-**Author:** [Your Name]  
-**Course:** Configuration Management 2026
+**Author:**  Oskar Saarmaa, Miro Rautanen
+**Course:** Palvelinten hallinta 2026
 
 ##  References
 
