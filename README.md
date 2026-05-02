@@ -2,7 +2,7 @@
 
 This repository demonstrates a fully automated Infrastructure-as-Code (IaC) solution using **SaltStack** to provision a robust monitoring environment. It automatically installs and configures Docker, Prometheus, and Grafana on a clean Debian-based system.
 
-## 📖 Project Overview
+##  Project Overview
 
 The goal of this project is to replace manual, error-prone server configurations with a standardized, idempotent, and scalable automated process. By defining the infrastructure as code, any IT team member can deploy a fully functional monitoring stack in minutes rather than hours.
 
@@ -13,7 +13,7 @@ The goal of this project is to replace manual, error-prone server configurations
 * **Grafana:** For data visualization and analytics.
 * **Bash:** For bootstrapping the initial Salt environment.
 
-## 💼 Business Value
+##  Business Value
 
 Why is this setup valuable for an organization?
 
