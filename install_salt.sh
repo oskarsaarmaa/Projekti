@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html>
-<body>
+#!/bin/bash
 
-<h1>Salt Bootstrap Script Migration Warning</h1>
-<p>
-    In October 2024, the Salt Project package repositories migrated.
-    
-    <strong>
-        Both bootstrap.saltproject.io and winbootstrap.saltproject.io
-        were set to be decomissioned by end of November 2024. An extension
-        was given to January 2025. This page is still hosted as a way to
-        inform and direct users to new locations.
-    </strong>
-</p>
-<p>
-    New download locations:
+echo "--- Starting automated installation ---"
 
-    <ul>
-        <li><a href="https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh">https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh</a></li>
-        <li><a href="https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh.sha256">https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh.sha256</a></li>
-        <li><a href="https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.ps1">https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.ps1</a></li>
-        <li><a href="https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.ps1.sha256">https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.ps1.sha256</a></li>
-    </ul>
-</p>
+# 1. Update the system and install base tools
+sudo apt-get update
+sudo apt-get install -y python3-pip python3-venv git
 
-<h2>Resources</h2>
+# 2. Install Salt and the Docker interface (Debian Trixie compatibility)
+# --break-system-packages is required for pip installations on modern Debian
+echo "Installing Salt and required Python libraries..."
+sudo pip3 install salt docker --break-system-packages
 
-<ul>
-    <li><a href="https://saltproject.io/blog/upcoming-bootstrap-decommission/">Upcoming bootstrap subdomain decommission</a></li>
-    <li><a href="https://saltproject.io/blog/post-migration-salt-project-faqs/">FAQs from Salt Project Repo Migration</a></li>
-    <li><a href="https://github.com/saltstack/salt-bootstrap">salt-bootstrap code repo</a></li>
-    <li><a href="https://docs.saltproject.io/salt/install-guide/en/latest/index.html">Salt Install Guide</a></li>
-</ul>
+# 3. Create the Salt directory structure if it doesn't exist
+sudo mkdir -p /srv/salt
 
-</body>
-</html>
+# 4. Copy configurations from this repository to the system
+# This assumes the script is run from the root of the cloned repository
+echo "Copying Salt configurations to /srv/salt/..."
+sudo cp -r srv/salt/* /srv/salt/
+
+# 5. Run the Salt automation (state.apply)
+echo "Executing automation (state.apply)..."
+sudo salt-call --local --file-root=/srv/salt state.apply
+
+echo "--- Installation complete! ---"
+echo "Grafana is available at: http://localhost:3000"
+echo "Prometheus is available at: http://localhost:9090"
