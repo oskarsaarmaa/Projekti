@@ -107,11 +107,12 @@ After a successful run, Salt will report `Succeeded: 7, Failed: 0`. You can then
 | **Prometheus** | `http://localhost:9090` | 9090 |
 
 ### Final Result Screenshot
-![Monitoring Dashboard](./screenshot.png) 
-*(Note: Replace the path above with your actual screenshot file)*
+TULOSSA
+
 
 ---
 **Author:**  Oskar Saarmaa, Miro Rautanen
+
 **Course:** Palvelinten hallinta 2026
 
 ##  References
