@@ -65,13 +65,13 @@ We divided the project into small, manageable modules:
 ## How to run it
 
 ### Prerequisites
-*   A clean Debian-based system (We used Debian Trixie/Testing).
+*   A clean Debian-based system (We used Debian).
 *   Sudo rights.
 
 ### Steps
 1.  **Clone the repo:**
     ```bash
-    git clone [https://github.com/oskarsaarmaa/Projekti.git](https://github.com/oskarsaarmaa/Projekti.git)
+    git clone https://github.com/oskarsaarmaa/Projekti.git(git@github.com:oskarsaarmaa/Projekti.git)
     cd Projekti
     ```
 
