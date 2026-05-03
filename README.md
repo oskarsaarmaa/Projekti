@@ -35,7 +35,7 @@ Even though this is a relatively small project, we feel this approach is really 
 2.  **Consistency:** The configuration is always the same because we defined it in the code.
 3.  **Teamwork:** Working as a pair helped us solve problems faster and double-check each other's configurations.
 
-## How it works (Technical details)
+## How it works 
 
 ### The Bootstrap Script
 We wrote a bash script called `install_salt.sh`. It handles the "boring" parts like installing Salt, Python dependencies (like the Docker SDK), and moving the configuration files to the correct `/srv/salt` directory. 
@@ -82,6 +82,38 @@ We divided the project into small, manageable modules:
 
 3.  **Check if it worked:**
     Run `sudo docker ps` to see if the containers are up and running.
+
+
+4. Access the Dashboards
+Once the containers are running, you can access the web interfaces:
+*   **Grafana:** [http://localhost:3000](http://localhost:3000) (Default login: `admin` / `admin`)
+*   **Prometheus:** [http://localhost:9090](http://localhost:9090)
+
+5. Verify Prometheus Targets
+To ensure Prometheus is actually receiving data from your host:
+1.  Navigate to **Status** -> **Targets** in the Prometheus UI.
+2.  You should see both `prometheus` and `node-exporter` (172.17.0.1:9100) with a green **UP** status.
+
+6. Set up Grafana Visualization
+1.  **Add Data Source:** Go to Connections -> Data Sources -> Add Data Source -> **Prometheus**.
+2.  **URL:** Enter `http://172.17.0.1:9090` (using the Docker gateway IP to reach the Prometheus container).
+3.  **Import Dashboard:** Go to Dashboards -> New -> **Import**. Use ID `1860` for a professional-grade Node Exporter Full dashboard.
+
+### Troubleshooting
+* Config not updating?
+    If you change `prometheus.yml` in your repo, re-run `sudo bash install_salt.sh`. Salt will update the file in `/etc/prometheus/` and you might need to restart the container with:
+  
+    ```bash
+    sudo docker restart prometheus
+    ```
+* Permission denied?
+    If the script fails to create directories, ensure you are using `sudo`. The automation handles folder creation in `/srv/salt` and `/etc/prometheus`, which are root-protected areas.
+
+* Port conflicts?
+    If port 3000 or 9090 is already in use, the containers will fail to start. You can check for busy ports with:
+    ```bash
+    ss -tulpn | grep -E '3000|9090'
+    ```
 
 ## Results
 
