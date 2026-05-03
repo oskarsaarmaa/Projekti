@@ -13,6 +13,21 @@ The main idea for us was to learn how to manage infrastructure as code. Instead 
 *   **Prometheus:** We used this for collecting metrics from the system.
 *   **Grafana:** We used this for visualizing the data collected by Prometheus.
 
+### Project Architecture
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/baf78728-6a3a-4246-a266-2e5393deddb9" />
+
+### How the system works
+1. Everything begins with the install_salt.sh script. It acts as the "brain" that sets up the environment, installs Docker, and tells SaltStack to pull our configurations.
+2. Once the containers are running, Prometheus starts pulling metrics (like CPU usage and memory) from the Host Metrics. It stores this data in a time-series database so we can look at historical trends.
+3. Grafana connects to Prometheus to read that data. It turns the raw numbers into easy-to-read graphs and dashboards that the User can access through a web browser.
+
+### Why this is beneficial
+* No Manual Work: If we need to set up this monitoring on ten different servers, we just run the script. We don't have to configure each tool one by one.
+* Real-time Visibility: Instead of guessing how the server is doing, we have a live dashboard that shows us exactly what is happening under the hood.
+* Error Prevention: Since the whole process is defined in code, we avoid human errors like typos in configuration files or forgetting to open a specific port.
+
+
 ## Why this is useful
 
 Even though this is a relatively small project, we feel this approach is really important in real IT work:
