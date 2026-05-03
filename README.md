@@ -9,7 +9,9 @@ This repository provides a production-ready Infrastructure-as-Code (IaC) solutio
 * [Technical Implementation](#technical-implementation)
 * [Repository Structure](#-repository-structure)
 * [Installation & Deployment](#-installation--deployment)
+* [Troubleshooting](#-troubleshooting)
 * [Verification & Results](#-verification--results)
+* [References](#-references)
 
 ---
 
@@ -22,7 +24,7 @@ Instead of following a manual 20-step installation guide, this project uses a bo
 
 ---
 
-## Achitecture & Tools
+##  Architecture & Tools
 
 The system is built on a modular architecture where SaltStack acts as the orchestrator for Docker-based microservices.
 
@@ -44,12 +46,13 @@ In a modern IT environment, this approach provides several critical advantages:
 
 ---
 
-##  Technical Implementation
+## 🛠️ Technical Implementation
 
 ### SaltStack State Tree
 The project follows the "Top File" pattern to manage the state tree:
 *   **`top.sls`**: The map that assigns roles to the server.
-*   **Modular States**: Each service (Docker, Prometheus, Grafana) has its own directory with an `init.sls` file, making the system easy to extend.
+*   **Modular States**: Each service (Docker, Prometheus, Grafana) has its own directory with an `init.sls` file.
+*   **Note on YAML**: SaltStack is highly sensitive to indentation. This project strictly adheres to the two-space indentation standard in all `.sls` files to ensure reliable state rendering.
 
 ### Bootstrap Process
 The `install_salt.sh` script bridges the gap between a raw OS and a managed node:
@@ -83,17 +86,28 @@ The `install_salt.sh` script bridges the gap between a raw OS and a managed node
 ### Prerequisites
 * **OS:** Debian 12 (Bookworm) or Debian Trixie.
 * **Privileges:** Sudo access.
-* **Network:** Internet access for pulling Docker images.
+* **Network:** Internet access for pulling Docker images and Salt packages.
 
 ### Deployment Steps
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/YOUR_USERNAME/Projekti.git](https://github.com/YOUR_USERNAME/Projekti.git)
+git clone [https://github.com/oskarsaarmaa/Projekti.git](https://github.com/oskarsaarmaa/Projekti.git)
 cd Projekti
 
 # 2. Execute the turnkey installer
 sudo bash install_salt.sh
+
+# 3. Verify that containers are running
+sudo docker ps
 ```
+
+---
+
+## Troubleshooting
+
+*   **Script Failures:** If the installation fails, ensure you have an active internet connection and that no other service is occupying ports `3000` (Grafana) or `9090` (Prometheus).
+*   **Permissions:** Always run the installation script with `sudo`. If Salt reports permission errors, verify that your user is part of the `docker` group or run commands as root.
+*   **State Errors:** If a specific state fails, check the Salt output for "Rendering SLS failed". This is usually caused by incorrect YAML syntax or missing dependencies.
 
 ---
 
@@ -107,13 +121,9 @@ After a successful run, Salt will report `Succeeded: 7, Failed: 0`. You can then
 | **Prometheus** | `http://localhost:9090` | 9090 |
 
 ### Final Result Screenshot
-TULOSSA
-
+![Monitoring Dashboard](./screenshot.png) 
 
 ---
-**Author:**  Oskar Saarmaa, Miro Rautanen
-
-**Course:** Palvelinten hallinta 2026
 
 ##  References
 
@@ -123,4 +133,7 @@ The following resources were instrumental in the development of this project:
 *   **Prometheus Configuration:** [Prometheus.io Docs](https://prometheus.io/docs/introduction/overview/) - Reference for `prometheus.yml` structure and metrics collection.
 *   **Docker Hub:** [Official Grafana Image](https://hub.docker.com/r/grafana/grafana) & [Official Prometheus Image](https://hub.docker.com/r/prom/prometheus) - For container environment variables and port mappings.
 *   **Tero Karvinen's Infrastructure as Code:** [terokarvinen.com](https://terokarvinen.com) - Conceptual framework for centralized management and SaltStack best practices.
-*   **Debian Trixie (Testing) Release Notes:** Used to verify Python and Pip compatibility for the bootstrap script.
+
+---
+**Author:** Oskar Saarmaa ja Miro Rautanen
+**Course:** Palvelinten hallintat 2026
