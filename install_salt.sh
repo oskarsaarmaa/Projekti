@@ -1,40 +1,35 @@
 #!/bin/bash
 
-REPO_URL="https://github.com/oskarsaarmaa/Projekti.git"
-TARGET_DIR="$HOME/Projekti"
+# This script automates the installation of SaltStack and the Docker-based monitoring stack.
+# Usage: sudo bash install_salt.sh
 
-echo "Starting automated installation"
+echo "Starting automated installation "
 
-# 1. Check if we have the repository files locally. 
-# If not, clone them to ensure the script has everything it needs.
-if [ ! -d "$TARGET_DIR/srv" ]; then
-    echo "Local files not found. Cloning repository to $TARGET_DIR"
-    git clone $REPO_URL $TARGET_DIR
-    cd $TARGET_DIR
-else
-    echo "Repository files found locally at $TARGET_DIR."
-fi
-
-# 2. Update the system and install base tools
+# 1. Update package lists and install essential base tools
+# Including git to ensure it's available for any further operations.
 sudo apt-get update
 sudo apt-get install -y python3-pip python3-venv git
 
-# 3. Install Salt and the Docker interface
-# --break-system-packages is required for modern Debian/Ubuntu
+# 2. Install Salt and the Docker library for Salt
+# Note: --break-system-packages is required for compatibility with modern Debian-based systems (e.g., Debian Trixie).
 echo "Installing Salt and required Python libraries"
 sudo pip3 install salt docker --break-system-packages
 
-# 4. Setup the Salt directory structure
+# 3. Create the directory structure for Salt configurations
+# This is the default path where salt-call looks for state files.
 sudo mkdir -p /srv/salt
 
-# 5. Copy configurations to the system (The Salt Root)
+# 4. Copy project SLS files to the system's Salt root
+# This assumes the script is executed from within the 'Projekti' directory.
 echo "Copying Salt configurations to /srv/salt/"
 sudo cp -r srv/salt/* /srv/salt/
 
-# 6. Run the automation
-echo "Executing automation"
+# 5. Execute the automation (State Apply)
+# Running in local mode (--local) to avoid the need for a separate Salt-Master.
+echo "Executing automation (state.apply)"
 sudo salt-call --local --file-root=/srv/salt state.apply
 
+echo ""
 echo "Installation complete!"
-echo "Grafana: http://localhost:3000"
-echo "Prometheus: http://localhost:9090"
+echo "Grafana is available at: http://localhost:3000"
+echo "Prometheus is available at: http://localhost:9090"
