@@ -84,15 +84,18 @@ We divided the project into small, manageable modules:
     Run `sudo docker ps` to see if the containers are up and running.
 
 
-4. Access the Dashboards
+
+5. Access the Dashboards
 Once the containers are running, you can access the web interfaces:
 *   **Grafana:** [http://localhost:3000](http://localhost:3000) (Default login: `admin` / `admin`)
 *   **Prometheus:** [http://localhost:9090](http://localhost:9090)
 
+  
+
 5. Verify Prometheus Targets
 To ensure Prometheus is actually receiving data from your host:
 1.  Navigate to **Status** -> **Targets** in the Prometheus UI.
-2.  You should see both `prometheus` and `node-exporter` (172.17.0.1:9100) with a green **UP** status.
+2.  You should see both `prometheus` and `node-exporter` (yourip:9100) with a green **UP** status.
 
 6. Set up Grafana Visualization
 1.  **Add Data Source:** Go to Connections -> Data Sources -> Add Data Source -> **Prometheus**.
