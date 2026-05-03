@@ -89,8 +89,25 @@ When the script finishes successfully, Salt should report `Succeeded: 7`. You ca
 *   **Grafana:** http://localhost:3000 (Default login: admin / admin)
 *   **Prometheus:** http://localhost:9090
 
-### Screenshot of our working setup
-![Final result](./screenshot.png)
+## Screenshot of our working setup
+
+### Prometheus
+
+* Following the system configuration, a technical verification was conducted via the Prometheus Target health interface.
+* The monitoring system has successfully established connections to both defined targets: prometheus (self-monitoring) and node (host resource monitoring).
+* The 'UP' status for both targets confirms that the prometheus.yml configuration is valid and that the Node Exporter container is successfully transmitting data through port 9100.
+
+<img width="2536" height="485" alt="image" src="https://github.com/user-attachments/assets/2c5a91e3-ad74-4722-a716-70cd3aff6438" />
+
+### Grafana
+
+* A Grafana dashboard was implemented to visualize raw data, providing a clear overview of the server’s current workload.
+* The visualization captures an active load scenario, showing a CPU usage (CPU Busy) of 25.9% and a general system load (Sys Load) of 17.6%.
+* The time-series graphs demonstrate continuous data collection, enabling historical trend analysis and the identification of potential resource bottlenecks on the host machine.
+
+<img width="2477" height="867" alt="image" src="https://github.com/user-attachments/assets/edbd4650-92a3-4977-bcd3-d1489dc62f53" />
+
+
 
 ---
 
