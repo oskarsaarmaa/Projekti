@@ -1,4 +1,4 @@
-# Varmistetaan, että konfiguraatiolle on hakemisto isäntäkoneella
+# Create a folder for the config file on the host machine
 prometheus_config_dir:
   file.directory:
     - name: /etc/prometheus
@@ -6,8 +6,7 @@ prometheus_config_dir:
     - group: root
     - mode: 755
 
-# Kopioidaan konfiguraatiotiedosto GitHub-kansiosta (Salt-hakemistosta) järjestelmään
-# Tämä on idempotentti: tiedosto kopioidaan vain, jos se on muuttunut
+# Copy our prometheus.yml to the host folder
 manage_prometheus_yml:
   file.managed:
     - name: /etc/prometheus/prometheus.yml
@@ -18,8 +17,7 @@ manage_prometheus_yml:
     - require:
       - file: prometheus_config_dir
 
-# Käynnistetään Prometheus-kontti Dockerilla
-# 'unless' tekee tästä idempotentit: komentoa ei ajeta, jos kontti on jo käynnissä
+# Run Prometheus container and mount the config file from the host
 run_prometheus_container:
   cmd.run:
     - name: |

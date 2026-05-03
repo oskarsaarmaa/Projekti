@@ -1,11 +1,11 @@
-# Asennetaan Docker-paketit järjestelmän pakethallinnasta
+# Install docker and docker-compose packages
 install_docker_packages:
   pkg.installed:
     - pkgs:
       - docker.io
       - docker-compose
 
-# Varmistetaan, että Docker-palvelu on käynnissä ja aktivoitu käynnistymään bootissa
+# Make sure docker service is running and starts on boot
 docker_service_enabled:
   service.running:
     - name: docker

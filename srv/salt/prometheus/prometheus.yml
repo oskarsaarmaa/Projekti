@@ -1,18 +1,17 @@
-# Global settings for Prometheus
+# Global configuration for the Prometheus server
 global:
-  scrape_interval: 15s     # How often to fetch metrics from targets (default is 1 min)
+  scrape_interval: 15s     # How often to fetch metrics from targets
   evaluation_interval: 15s # How often to evaluate alerting rules
 
-# List of monitoring targets (All jobs must be under a single scrape_configs block)
+# Scrape configurations define what resources Prometheus monitors
 scrape_configs:
-  # Job for Prometheus to monitor its own health and performance
+  # Monitoring the Prometheus server itself
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  # Job to monitor the host machine via Node Exporter
+  # Monitoring the host machine via Node Exporter
   - job_name: 'node'
     static_configs:
-      # 172.17.0.1 is the default gateway IP for the Docker bridge network, 
-      # allowing the Prometheus container to access the Node Exporter on the host.
+      # Using the Docker bridge gateway IP to reach the host service
       - targets: ['172.17.0.1:9100']
